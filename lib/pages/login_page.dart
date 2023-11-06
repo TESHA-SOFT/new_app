@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:new_app/style/app_color.dart';
-import 'package:new_app/style/app_font.dart';
+
+import '../components/view_components.dart';
+import '../style/view_style.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,7 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool toggle = false;
-  bool isobscureText = false;
+  bool isobscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
                 SvgPicture.asset('assets/temp/logo.svg', width: 100,),
                 const Spacer(),
                 Text(
-                  'Login',
+                  'Log in',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.w600,
@@ -54,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     textAlign:TextAlign.center,
                     'Term and privacy policy',
                     style: TextStyle(
+                      height: 0.5,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
                       color: AppColor.button2,
@@ -63,16 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                 const Spacer(),
                 TextFormField(
                   style: TextStyle(color: AppColor.font2),
-                  decoration: InputDecoration(
-                    hintText: 'Email Address',
-                    hintStyle: TextStyle(color: AppColor.font2),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.button1)
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.font2)
-                    ),
-                  ),
+                  decoration: DecorationLogApp().decor('Email address'),
+                  validator:(value) => ValidApp().validateEmail(value),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
                 SizedBox(
                   height: 10,
@@ -102,6 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                           : SvgPicture.asset('assets/icon/eye.svg'),
                     ),
                   ),
+                  validator:(value) => ValidApp().validatePassword(value),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
                 SizedBox(
                   height: 10,
@@ -125,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 14,
                         ),
                       ),
-                      
                       style: TextButton.styleFrom(
                         foregroundColor: AppColor.button2,
                       ),
@@ -158,10 +154,10 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: (){
-                      print('Login');
+                      print('Log in');
                     }, 
                     child: Text(
-                      'Login',
+                      'Log in',
                       style: AppFont.header2,
                     ),
                     style: TextButton.styleFrom(
@@ -182,33 +178,9 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: AppColor.button2,
-                      child: IconButton(
-                        onPressed: (){
-                        }, 
-                        icon: Image.asset('assets/temp/google.png'),
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: AppColor.button2,
-                      child: IconButton(
-                        onPressed: (){
-                        }, 
-                        icon: Image.asset('assets/temp/vk.png'),
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: AppColor.button2,
-                      child: IconButton(
-                        onPressed: (){
-                        }, 
-                        icon: Image.asset('assets/temp/yandex.png'),
-                      ),
-                    ),
+                    DecorationLogApp().emailButton('assets/temp/google.png'),
+                    DecorationLogApp().emailButton('assets/temp/vk.png'),
+                    DecorationLogApp().emailButton('assets/temp/yandex.png'),
                   ],
                 ),
                 const Spacer(),
