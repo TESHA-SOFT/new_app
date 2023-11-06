@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:new_app/pages/login_page.dart';
-import 'package:new_app/pages/start_page.dart';
-import 'package:new_app/style/app_color.dart';
+
+import '../pages/view_pages.dart';
+import '../style/view_style.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/':(context) => const StartPage(),
         '/login':(context) => const LoginPage(),
+        '/logup':(context) => const SignupPage(),
       },
     );
   }
