@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:new_app/style/app_color.dart';
+
+import '../style/view_style.dart';
+
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -17,7 +19,9 @@ class StartPage extends StatelessWidget {
               const Spacer(),
               SvgPicture.asset(
                 'assets/temp/logo.svg',
-                width: 200,
+                width: (MediaQuery.of(context).size.width)/2,
+                height: (MediaQuery.of(context).size.height)/3,
+                fit: BoxFit.contain,
               ),
               Text(
                 'NECO',
@@ -51,7 +55,7 @@ class StartPage extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton.icon(
                   onPressed: (){
-              
+                    Navigator.of(context).pushNamed('/logup');
                   },
                   label: SvgPicture.asset('assets/icon/alt-arrow-right.svg'),
                   icon: Text(
@@ -84,7 +88,7 @@ class StartPage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: (){
-                      Navigator.of(context).pushReplacementNamed('/login');
+                      Navigator.of(context).pushNamed('/login');
                     },
                     child: Text(
                       'Log in',
