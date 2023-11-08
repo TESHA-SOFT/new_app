@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'components/my_app.dart';
+import 'package:new_app/auth/routs/my_app.dart';
 
 void main() {
   runApp(const MyApp());
