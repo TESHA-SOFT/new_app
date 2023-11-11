@@ -82,8 +82,8 @@ class StartPage extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      OverflowBar(
+                        overflowAlignment: OverflowBarAlignment.center,
                         children: [
                           Text(
                             'Already have an account?',
@@ -92,6 +92,7 @@ class StartPage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: AppColor.font2,
                             ),
+                            
                           ),
                           TextButton(
                             onPressed: (){
@@ -104,6 +105,7 @@ class StartPage extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color: AppColor.button2,
                               ),
+                              
                             ),
                           ),
                         ],
