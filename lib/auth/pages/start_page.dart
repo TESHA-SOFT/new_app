@@ -96,7 +96,7 @@ class StartPage extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: (){
-                              Navigator.of(context).pushNamed('/login');
+                              Navigator.of(context).pushNamed('/auth_page');
                             },
                             child: Text(
                               'Log in',
