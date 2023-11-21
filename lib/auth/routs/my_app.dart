@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../main_pages/view_main_page.dart';
+import '../components/view_components.dart';
 import '../pages/view_pages.dart';
 import '../style/view_style.dart';
 
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
       theme: ThemeData(
         scaffoldBackgroundColor: AppColor.background,
         fontFamily: 'Nunito',
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/code':(context) => const CodePage(),
         '/reset_pas':(context) => const ResetPassword(),
         '/main_page':(context) => const MainPage(),
+        '/auth_page': (context) => const AuthPage(),
       },
     );
   }
