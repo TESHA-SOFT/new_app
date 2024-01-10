@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,6 +22,44 @@ class _SignupPageState extends State<SignupPage> {
   RegExp emailRegax = RegExp(r'^[\w\.-]+@[\w-]+\.\w{2,3}(\.\w{2,3})?$');
   late bool isEmailValid;
   final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signUp() async {
+    final isValid = _formkey.currentState!.validate();
+    if(!isValid) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context){
+        return const Center(
+          child: CircularProgressIndicator(
+            color: AppColor.button2,
+          ),
+        );
+      }
+    );
+
+    try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.of(context).pushNamed('/verif_ph').then((_){
+          FirebaseAuth.instance.currentUser?.delete();
+          Navigator.pop(context);
+        }
+      );
+    }
+    on FirebaseAuthException catch(e){
+      Navigator.pop(context);
+      Utils.showSnackBar(e.message);
+    }
+
+    //Navigator.of(context).pushReplacementNamed('/verif_ph');
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +120,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 10,
                         ),
                         TextFormField(
+                          controller: _emailController,
                           style: TextStyle(color: AppColor.font2),
                           decoration: DecorationLogApp().decor('Email address'),
                           onChanged: (value){
@@ -93,6 +133,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 10,
                         ),
                         TextFormField(
+                          controller: _passwordController,
                           obscureText: isobscureText,
                           style: TextStyle(color: AppColor.font2),
                           decoration: InputDecoration(
@@ -174,9 +215,10 @@ class _SignupPageState extends State<SignupPage> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: (){
-                              if(_formkey.currentState!.validate()){
+                              signUp();
+                              /*if(_formkey.currentState!.validate()){
                                 Navigator.of(context).pushNamed('/verif_ph');
-                              }
+                              }*/
                             }, 
                             child: Text(
                               'Sign up',
